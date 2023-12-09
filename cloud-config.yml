@@ -1,0 +1,67 @@
+#cloud-config
+
+write_files:
+  - path: /root/.ssh/known_hosts
+    content: |
+      |1|FA+xpgM0MqpgAUajLO1Kb/vZni8=|ezR3UHhAEuAdC04FoVj2IfwrhmY= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+  - path: /etc/environment
+    content: |
+      NODE_ENV=production
+      MONGODB_ATLAS_URI=mongodb+srv://passworm:PuMNP5ux2gKtb301@passworm-cluster.cpj05zi.mongodb.net/Passworm?retryWrites=true&w=majority
+      PORT=3000
+      JWT_SECRET=n3kSuPERduperPaSSw0rD!
+      KEY_SECRET=8af3b42e7d91c0a5b6e2fc17e7a8d4c2fbfa330c96b48ecb6be4299c2c7a86f1
+      GMAIL_USER='devops.akademija@gmail.com'
+      GMAIL_PASSWORD='gsll pnuv icnr imcb'
+      HTTPS=false
+    append: true
+      
+ssh_keys:
+  rsa_private: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn
+    NhAAAAAwEAAQAAAQEAzcJXIifwjkq3mEmBoU7PcSkWrpzhT4k2K92p2wKC1LGEFbkkNm/5
+    lSDsLWnDogXMNmzDNhETS5LIhYl4Sqrynf+cRd9iqi94Okt4yRZNHPRrhF323yJn46N5XL
+    OakU/pgkYDOoKfPieJ8K95KAHZDMdEBctnAiLK1awRnzRpV//FB38vEi8hBWcas4KTu1Jg
+    +89uphEf4bymytCt6RY1IbOmAER76O756MHensaFirBGCXPPWMunENGqyI1KklxIy3m7JZ
+    8XUeO8XSFicx94Mig7CsbhVB8yF9/zBHI4jZo6Lkw8EPJTbOkkJPRc4bU6iBGPDAv+DV0X
+    uui/1fwozwAAA9BHfSDQR30g0AAAAAdzc2gtcnNhAAABAQDNwlciJ/COSreYSYGhTs9xKR
+    aunOFPiTYr3anbAoLUsYQVuSQ2b/mVIOwtacOiBcw2bMM2ERNLksiFiXhKqvKd/5xF32Kq
+    L3g6S3jJFk0c9GuEXfbfImfjo3lcs5qRT+mCRgM6gp8+J4nwr3koAdkMx0QFy2cCIsrVrB
+    GfNGlX/8UHfy8SLyEFZxqzgpO7UmD7z26mER/hvKbK0K3pFjUhs6YARHvo7vnowd6exoWK
+    sEYJc89Yy6cQ0arIjUqSXEjLebslnxdR47xdIWJzH3gyKDsKxuFUHzIX3/MEcjiNmjouTD
+    wQ8lNs6SQk9FzhtTqIEY8MC/4NXRe66L/V/CjPAAAAAwEAAQAAAQEAiejWKgiHDXg68hFi
+    l1GRbJFTqJlx0rNu4Zviuu5F7nVEyKKdCPeoWzID2rRm8XPdWiUv+k8bla2+RPLM8478qr
+    Wmcpa1NMg4Vyo6vNz7toqEfeXVD92psEPjliSzVu4u3qg6hb8DKM+rfuy90fjbF9t/Vjrs
+    wdu8A9cewIyKhvWtyxfuxGW10MahcerWPGJRpba4QQbpbNRHj0pgw0Qa2tTJVAnoWigN+6
+    9sUGToAlwpm9vGavC7SomNgD9EW28kOQoXZ/E1Kkl5z/3IZiQGzYfgLBlkFgrFPhAD52Op
+    3Mv4pnOqyj13Puud2xzLnkzl6JTVGaDFrEjeIkb55RYkgQAAAIAKXi/c21zs/ga1Z5nIpY
+    It6t9yCY5eHW4EGOSqmj12tBzj41xFYMKsQfpLon4r84/bbkUeGu4dzd/1OHdOgwUqJKqM
+    vDEal3urpFaNnPd/ipREtFSS8ZARw5DLyflFxKyi6xLx/Jr0IiwNaZ3oFto83GzE1XH1x0
+    GidqAJ8sIX7wAAAIEA6iJgXTHrJwl7v3TtZ3d0LTS3bPGPk0njn3c++Z4CqwGiStKN3mxU
+    6LEapeqsigutL+84n/NFeUf7XjF83gNT74rCZ0GyuT1tMiNqDfVYUmlNUUfuIcV1Wch1bj
+    NlqAbQp+sk5QYJSwlOcWZIofBOyYuPaHsQDmoTfzgk/Jv6xm8AAACBAOD5lAV5nsxuAV+N
+    0X3chd+HN4lG8eAHL/HkxJUOroQ+xY51w2lBhupqi+9UjOhratkSWvgnn88YgC9GyPgudE
+    XzD+8K7qhC7oCotOREo0zMuJCR3u+/ENFktEco9f3GdAgLHCSelAdfbSpdoY/eJzTeL9mH
+    hS1xend+kuBgtvOhAAAAGXVyc2thQE1hY0Jvb2stUHJvLTcubG9jYWwB
+    -----END OPENSSH PRIVATE KEY-----
+
+  rsa_public: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNwlciJ/COSreYSYGhTs9xKRaunOFPiTYr3anbAoLUsYQVuSQ2b/mVIOwtacOiBcw2bMM2ERNLksiFiXhKqvKd/5xF32KqL3g6S3jJFk0c9GuEXfbfImfjo3lcs5qRT+mCRgM6gp8+J4nwr3koAdkMx0QFy2cCIsrVrBGfNGlX/8UHfy8SLyEFZxqzgpO7UmD7z26mER/hvKbK0K3pFjUhs6YARHvo7vnowd6exoWKsEYJc89Yy6cQ0arIjUqSXEjLebslnxdR47xdIWJzH3gyKDsKxuFUHzIX3/MEcjiNmjouTDwQ8lNs6SQk9FzhtTqIEY8MC/4NXRe66L/V/CjP
+
+ssh_deletekeys: false
+no_ssh_fingerprints: false
+ssh:
+  emit_keys_to_console: false
+
+runcmd:
+  - GIT_SSH_COMMAND='sudo ssh -i /etc/ssh/ssh_host_rsa_key -o IdentitiesOnly=yes' git clone git@github.com:UrskaN/passworm-app.git /opt/passworm
+  - cd /opt/passworm
+  - snap install node --channel=18/stable --classic
+  - npm install
+  - cp /etc/environment .env
+  - iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
+  - node server
+
+  # TODO: set static IP
+
+
