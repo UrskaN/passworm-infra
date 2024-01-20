@@ -24,3 +24,28 @@ If all goes as expected, the app will be available on IP assigned to the VM.
 
 ### Ideas for Improvement
 - Configure static IP for the VM
+
+
+## Conteinerization
+Included docker-compose.yml file launches the app and related services as Docker containers:
+
+1. Passworm - the main thing, a node.jst app for password sharing
+2. MongoDB - database to store app data
+3. NGINX - reverse proxy to access the app
+    - configuration is defined in nginx.conf
+4. Mailhog - for development and testing of email notifications
+
+### System Requirements
+- docker
+- docker compose
+
+### Private Repo Access
+To pull and run passworm-app image, access to private repo is requred to login into repository. In case of GitHub Container Repository an access token must be issued with appropriate permissions and passed as password on login.
+
+### Launch the Stack
+Create an .env file and fill in the values defined with sample values in .env.example or configure reqired settings in some other way. You can change the target environment by setting appropriate value in service passworm > environment > NODE_ENV (development / test / production)
+
+Then launch the stack by running
+```
+docker compose up -d
+```

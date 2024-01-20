@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  passworm:
+    container_name: passworm
+    ports:
+      - "3000:3000"
+    image: ghcr.io/urskan/passworm-app
+    depends_on:
+      - mongo-db
+    environment:
+      - NODE_ENV=test
+    env_file:
+      - .env
+    networks:
+      - passworm-network
+
+  mongo-db:
+    image: mongo:6.0
+    hostname: mongo-db
+    container_name: mongo-db
+    ports:
+      - '27017:27017'
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    networks:
+      - passworm-network
+    volumes:
+      - mongo_db:/data/db:rw
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.25.3
+    ports:
+      - "80:80"
+    depends_on:
+      - passworm
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - passworm-network
+
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - passworm-network
+
+networks:
+  passworm-network: {}
+
+volumes:
+  mongo_db: {}
