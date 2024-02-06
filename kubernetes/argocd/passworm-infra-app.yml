@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: passworm-infra-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:UrskaN/passworm-infra.git
+    targetRevision: main
+    path: kubernetes/manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: passworm
+  syncPolicy:
+    automated:
+      prune: true 
+    syncOptions:
+      - Validate=false
