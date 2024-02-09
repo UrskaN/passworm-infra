@@ -44,7 +44,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mail-auth
-                  key: user
+                  key: username
             - name: GMAIL_PASSWORD
               valueFrom:
                 secretKeyRef:

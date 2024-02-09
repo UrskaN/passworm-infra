@@ -3,9 +3,15 @@ kind: Ingress
 metadata:
   name: passworm-ingress
   namespace: passworm
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
 spec:
+  tls:
+  - hosts:
+    - passworm.essa-vm-04.lrk.si
+    secretName: passworm-ingress-tls
   rules:
-  - host: passworm.essa-vm-04.lrc.si
+  - host: passworm.essa-vm-04.lrk.si
     http:
       paths:
       - path: /
