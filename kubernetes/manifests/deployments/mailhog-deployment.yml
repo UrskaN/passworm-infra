@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailhog
+  namespace: passworm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailhog
+  template:
+    metadata:
+      labels:
+        app: mailhog
+    spec:
+      containers:
+        - name: mailhog
+          image: mailhog/mailhog:v1.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 1025
+            - containerPort: 8025
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30

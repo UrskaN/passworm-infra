@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: passworm-ingress
+  namespace: passworm
+spec:
+  rules:
+  - host: passworm.essa-vm-04.lrc.si
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: passworm
+            port:
+              number: 3000
