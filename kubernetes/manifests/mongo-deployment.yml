@@ -22,8 +22,8 @@ spec:
           volumeMounts:
             - mountPath: /data/db
               name: mongo-data
-        restartPolicy: Always
-        terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       volumes:
         - name: mongo-data
           persistentVolumeClaim:

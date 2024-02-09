@@ -20,5 +20,5 @@ spec:
           ports:
             - containerPort: 1025
             - containerPort: 8025
-        restartPolicy: Always
-        terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

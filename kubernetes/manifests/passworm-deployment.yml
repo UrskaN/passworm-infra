@@ -55,7 +55,8 @@ spec:
                 secretKeyRef:
                   name: mail-auth
                   key: password
-        restartPolicy: Always
-        terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       imagePullSecrets:
-        - name: regcred
+        - name: private-registry-auth
+
