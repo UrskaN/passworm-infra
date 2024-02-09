@@ -4,5 +4,4 @@ metadata:
   name: passworm-config
   namespace: passworm
 data:
-  port: 3000
-  node_env: 'production'
+  node_env: "production"
