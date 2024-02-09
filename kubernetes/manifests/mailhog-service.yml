@@ -12,7 +12,4 @@ spec:
     - protocol: TCP
       port: 1025
       targetPort: 1025
-    - protocol: TCP
-      port: 8025
-      targetPort: 8025
   type: ClusterIP
