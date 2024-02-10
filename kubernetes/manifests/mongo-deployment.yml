@@ -22,27 +22,27 @@ spec:
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: mongo-auth
                   key: mongo_init_user
             - name: MONGO_INITDB_ROOT_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: mongo-auth
                   key: mongo_init_password
             - name: MONGO_APP_USER
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: mongo-auth
                   key: mongo_app_user
             - name: MONGO_APP_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: mongo-auth
                   key: mongo_app_password
             - name: MONGO_DB
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: mongo-auth
                   key: mongo_db
           volumeMounts:
