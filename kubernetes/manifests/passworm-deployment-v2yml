@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passworm-v2
+  namespace: passworm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: passworm
+      version: v2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: passworm
+        version: v2
+    spec:
+      containers:
+        - name: passworm
+          image: ghcr.io/urskan/passworm-app:2.1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: passworm-config
+                  key: node_env
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: passworm-config
+                  key: jwt_secret
+            - name: KEY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: passworm-config
+                  key: key_secret
+            - name: MONGODB_ATLAS_URI
+              valueFrom:
+                secretKeyRef:
+                  name: passworm-config
+                  key: mongodb_atlas_uri
+            - name: GMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mail-auth
+                  key: username
+            - name: GMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mail-auth
+                  key: password
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3000
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+        - name: private-registry-auth
+

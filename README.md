@@ -49,3 +49,31 @@ Then launch the stack by running
 ```
 docker compose up -d
 ```
+
+## Orchestration with Kubernetes
+The whole stack previously defined in docker-compose.yml is now set up to be deployed onto a Kubernetes cluster. This includes:
+1. Passworm - 3 replicas
+2. MongoDB - 1 replica
+3. Mailhog - 1 replica
+4. NGINX as Ingress
+
+Application is available at https://passworm.essa-vm-04.lrk.si/login
+
+All manifest files are in `kubernetes/manifests` directory. 
+
+### Sealed Secrets
+To keep things in the spirit of GitOps, all secrets are encrypted and commited along with other files. Once deployed, secrets are decrypted in cluster and applied. Sealed-secrets (serverside) and kubeseal (locally) are used for this purpose. 
+
+### Pointers to Other Reqirements
+- cert-manager is defined and included in Ingress definition
+- PersistentVolume and PVC are defined and used with MongoDB
+- image for Passworm app is custom and built using Github Actions pipeline (previous assignment)
+
+### Deployment & GitOps
+Any change in files in directory `kubernetes/manifests` on main branch will be automatically deployed to the cluster using ArgoCD. Definitions for its resources are in `kubernetes/argocd`.
+
+#### Rolling Update
+Updated passworm deployment to use newer version of docker image (updated from 2.0.0 to 2.0.1) with 1 additional pod allowed and no fewer than original 3.
+
+![Screenshot of rolling update in action.](<img/rolling.gif>)
+
