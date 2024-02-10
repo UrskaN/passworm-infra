@@ -67,7 +67,10 @@ To keep things in the spirit of GitOps, all secrets are encrypted and commited a
 ### Pointers to Other Reqirements
 - cert-manager is defined and included in Ingress definition
 - PersistentVolume and PVC are defined and used with MongoDB
-- image for Passworm app is custom and built using Github Actions pipeline (previous assignment)
+- image for Passworm app is custom and built using Github Actions pipeline (previous assignment). It now uses tini as PID 1 process and runs app as nonroot user.
+- readiness probes are added to the app
+    - liveness: always returns 200 (if it's capable of responding, it's live)
+    - readines: positive response when database is connected (will stop responding with 200 if the connection is dropped)
 
 ### Deployment & GitOps
 Any change in files in directory `kubernetes/manifests` on main branch will be automatically deployed to the cluster using ArgoCD. Definitions for its resources are in `kubernetes/argocd`.
@@ -77,3 +80,9 @@ Updated passworm deployment to use newer version of docker image (updated from 2
 
 ![Screenshot of rolling update in action.](<img/rolling.gif>)
 
+#### Blue/Green Deployment
+New version of passworm (image version 2.1.1) app was deployed as v2 before switching ingress to service passworm-v2. Previous version is left running to allow for easy rollback.
+
+![Screenshot of deployments just after creating v2.](<img/blue-green-depl.png>)
+
+![Screenshot of pods after v2 pods have been created.](<img/blue-green-pods.png>)

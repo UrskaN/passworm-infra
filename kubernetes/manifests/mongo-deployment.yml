@@ -19,12 +19,55 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-auth
+                  key: mongo_init_user
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-auth
+                  key: mongo_init_password
+            - name: MONGO_APP_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-auth
+                  key: mongo_app_user
+            - name: MONGO_APP_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-auth
+                  key: mongo_app_password
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-auth
+                  key: mongo_db
           volumeMounts:
             - mountPath: /data/db
               name: mongo-data
+            - monthPath: /docker-entrypoint-initdb.d
+              name: init-config
+              readOnly: true
+      initContainers:
+        - name: mongo-init
+          image: image: alpine:latest
+          command: ["/bin/sh", "-c", "echo \"db = db.getSiblingDB(process.env[MONGO_DB]);\n\
+          db.createUser({\n\
+              user: process.env[MONGO_APP_USER],\n\
+              pwd: process.env[MONGO_APP_PASSWORD],\n\
+              roles: [{ role: \'readWrite\', db: process.env[MONGO_DB]}],\n\
+          });\" > /init/mongo-init.js"]
+          volumeMounts:
+          - name: init-config
+            mountPath: /init
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
         - name: mongo-data
           persistentVolumeClaim:
             claimName: mongo-pvc
+        - name: init-config
+          emptyDir: {}
