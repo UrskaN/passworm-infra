@@ -48,12 +48,12 @@ spec:
           volumeMounts:
             - mountPath: /data/db
               name: mongo-data
-            - monthPath: /docker-entrypoint-initdb.d
+            - mountPath: /docker-entrypoint-initdb.d
               name: init-config
               readOnly: true
       initContainers:
         - name: mongo-init
-          image: image: alpine:latest
+          image: alpine:latest
           command: ["/bin/sh", "-c", "echo \"db = db.getSiblingDB(process.env[MONGO_DB]);\n\
           db.createUser({\n\
               user: process.env[MONGO_APP_USER],\n\
