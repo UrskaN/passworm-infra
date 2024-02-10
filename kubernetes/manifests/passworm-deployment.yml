@@ -8,6 +8,11 @@ spec:
   selector:
     matchLabels:
       app: passworm
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -15,7 +20,7 @@ spec:
     spec:
       containers:
         - name: passworm
-          image: ghcr.io/urskan/passworm-app
+          image: ghcr.io/urskan/passworm-app:2.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
