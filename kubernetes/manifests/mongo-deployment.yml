@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: mongo
+  strategy: {}
   template:
     metadata:
       labels:
@@ -48,21 +49,9 @@ spec:
           volumeMounts:
             - mountPath: /data/db
               name: mongo-data
-            - mountPath: /docker-entrypoint-initdb.d
+            - mountPath: /docker-entrypoint-initdb.d/
               name: init-config
               readOnly: true
-      initContainers:
-        - name: mongo-init
-          image: alpine:latest
-          command: ["/bin/sh", "-c", "echo \"db = db.getSiblingDB(process.env[MONGO_DB]);\n\
-          db.createUser({\n\
-              user: process.env[MONGO_APP_USER],\n\
-              pwd: process.env[MONGO_APP_PASSWORD],\n\
-              roles: [{ role: \'readWrite\', db: process.env[MONGO_DB]}],\n\
-          });\" > /init/mongo-init.js"]
-          volumeMounts:
-          - name: init-config
-            mountPath: /init
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
@@ -70,4 +59,5 @@ spec:
           persistentVolumeClaim:
             claimName: mongo-pvc
         - name: init-config
-          emptyDir: {}
+          configMap:
+            name: mongo-init-config
